@@ -1,40 +1,85 @@
-Used the dataset of https://www.kaggle.com/datasets/sumanthvrao/daily-climate-time-series-data and https://www.kaggle.com/datasets/rober2598/madrid-weather-dataset-by-hours-20192022
+# Kafka Real-Time Data Streaming Setup
 
-If Someone wants to setup Kafka for realtime data stream, then follow the steps below -: 
-1. Install Kafka from https://kafka.apache.org/downloads
-I downloaded https://downloads.apache.org/kafka/3.8.0/kafka_2.13-3.8.0.tgz 
-2. Edit environment variables and add the path "C:\Kafka\kafka_2.13–3.8.0\bin\windows" in the path section
-3. Click ok, ok, ok
-4. Open path: C:\Kafka\kafka_2.13–3.8.0\config and find Server.properties and zookeeper.properties
-5. Find and edit the log.dirs attribute inside the Server.properties like below correspond to your path
-logs.dir = "C:/Kafka/kafka_2.13-3.8.0/kafka-logs"
-6. Find and edit the dataDir attribute inside the zookeeper.properties like below correspond to your path
-dataDir = "C:/Kafka/kafka_2.13-3.8.0/zookeeper-data"
-7. Open a command prompt and navigate to your ZooKeeper installation directory 
-cd "C:\Kafka\kafka_2.13-3.8.0\bin\windows"
-8. Type the command line below in the command prompt above (inside ZooKeeper installation directory) and Enter
-zookeeper-server-start.bat ..\..\config\zookeeper.properties
-9. Open a command prompt and navigate to your kafka-server-start.bat installation directory
-cd "C:\Kafka\kafka_2.13-3.8.0\bin\windows"
-10. Type the command line below in the command prompt above (inside Kafka installation directory) and Enter
-kafka-server-start.bat ..\..\config\server.properties
-11. A. Open another command prompt and type
-kafka-topics.bat --bootstrap-server localhost:9092 --topic temperature --create --partitions 3 --replication-factor 1
-kafka-topics.bat --create --topic raw-climate-data --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+This guide describes the setup process for Kafka to handle real-time data streaming. It is tailored for Windows environments and uses datasets from Kaggle to demonstrate Kafka's capabilities.
 
-## Produce Messages
-12. Open another command prompt and type
-kafka-console-producer.bat --bootstrap-server localhost:9092 --topic temperature
-## Consumer Messages
-13. Open another command prompt and type
-kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic temperature
-## Testing Streaming data
-A. Type the message in the Produce Messages command prompt open in step 12
-B. You will see the message in the Consumer command prompt that we open in step 13
+## Prerequisites
 
-## To list all topics, open command prompt type
-kafka-topics.bat --bootstrap-server localhost:9092 --list
+Before you begin, ensure you have downloaded and extracted Kafka. For this setup, the Kafka version used is `3.8.0` for Scala `2.13`.
 
+Download Kafka: [Apache Kafka 3.8.0](https://downloads.apache.org/kafka/3.8.0/kafka_2.13-3.8.0.tgz)
 
+## Installation
 
+1. **Install Kafka**:
+   - Download Kafka from [Apache Kafka Downloads](https://kafka.apache.org/downloads).
+   - Extract the downloaded file to a preferred location, e.g., `C:\Kafka\`.
 
+2. **Set Environment Variables**:
+   - Add Kafka's `bin\windows` directory to your system's PATH to allow running Kafka commands from any command prompt.
+     ```
+     Path: C:\Kafka\kafka_2.13-3.8.0\bin\windows
+     ```
+
+3. **Configure Kafka and ZooKeeper**:
+   - Navigate to `C:\Kafka\kafka_2.13-3.8.0\config`.
+   - Edit `server.properties` and set the `log.dirs` to point to the Kafka logs directory:
+     ```
+     log.dirs=C:/Kafka/kafka_2.13-3.8.0/kafka-logs
+     ```
+   - Edit `zookeeper.properties` and set the `dataDir` to point to the ZooKeeper data directory:
+     ```
+     dataDir=C:/Kafka/kafka_2.13-3.8.0/zookeeper-data
+     ```
+
+## Running Kafka
+
+1. **Start ZooKeeper**:
+   - Open a command prompt and navigate to your Kafka installation's `bin\windows` directory:
+     ```
+     cd C:\Kafka\kafka_2.13-3.8.0\bin\windows
+     ```
+   - Start ZooKeeper using the following command:
+     ```
+     zookeeper-server-start.bat ..\..\config\zookeeper.properties
+     ```
+
+2. **Start Kafka Server**:
+   - Open a new command prompt as described above and start the Kafka server:
+     ```
+     kafka-server-start.bat ..\..\config\server.properties
+     ```
+
+## Kafka Topics Management
+
+1. **Create Topics**:
+   - To create topics, open a new command prompt and type:
+     ```
+     kafka-topics.bat --create --topic temperature --bootstrap-server localhost:9092 --partitions 3 --replication-factor 1
+     kafka-topics.bat --create --topic raw-climate-data --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1
+     ```
+
+2. **List Topics**:
+   - To list all existing topics:
+     ```
+     kafka-topics.bat --bootstrap-server localhost:9092 --list
+     ```
+
+## Producing and Consuming Messages
+
+1. **Produce Messages**:
+   - Open a new command prompt and run the producer:
+     ```
+     kafka-console-producer.bat --bootstrap-server localhost:9092 --topic temperature
+     ```
+
+2. **Consume Messages**:
+   - Open another command prompt and start the consumer:
+     ```
+     kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic temperature
+     ```
+
+   - Type a message in the producer command prompt and observe it appearing in the consumer prompt, demonstrating real-time data streaming.
+
+## Conclusion
+
+This README outlines the steps required to set up Kafka for real-time data streaming on Windows. For real-world applications, consider securing your Kafka deployment and managing it for performance and reliability.
