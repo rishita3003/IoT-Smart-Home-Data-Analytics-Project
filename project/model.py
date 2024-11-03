@@ -27,44 +27,49 @@ class ModelTrainer:
                .withColumn("hour", hour("time")) \
                .withColumn("minute", minute("time")) \
                .drop("time")
-        feature_columns = [col for col in df.columns if col != self.target_col]
-        assembler = VectorAssembler(inputCols=feature_columns, outputCol="features")
-        return assembler.transform(df)
+        # Drop any rows with null values in the columns that are input to the VectorAssembler
+        df = df.na.drop(subset=[col for col in df.columns if col != self.target_col and col != "features"])
+
+        feature_columns = [col for col in df.columns if col != self.target_col and col != "features"]
+       
+        # Check if the 'features' column already exists, if not create it
+        if "features" not in df.columns:
+            assembler = VectorAssembler(inputCols=feature_columns, outputCol="features", handleInvalid="skip")
+            
+        return df
 
     def train_models(self):
-        if "features" in self.columns:
+        if "features" in self.data.columns:
             self.data = self.data.drop("features")
         train_data, test_data = self.data.randomSplit([0.8, 0.2], seed=42)
         gbt = GBTRegressor(featuresCol='features', labelCol=self.target_col)
-        
-
         # Assemble transformations and the model into a Pipeline
-        stages = [VectorAssembler(inputCols=[col for col in train_data.columns if col != self.target_col], outputCol="features"), gbt]
+        stages = [VectorAssembler(inputCols=[col for col in train_data.columns if col != self.target_col and col != "features"], outputCol="features"), gbt]
         pipeline = Pipeline(stages=stages)
         model = pipeline.fit(train_data)
-
         # Evaluate the model
         predictions = model.transform(test_data)
         evaluator = RegressionEvaluator(labelCol=self.target_col, predictionCol="prediction", metricName="rmse")
         rmse = evaluator.evaluate(predictions)
         print(f"RMSE: {rmse}")
-
         # Save the entire pipeline
-        model.save(f"{self.model_save_path}/model_pipeline")
-        print(f"model saved")
+        model.write().overwrite().save(f"{self.model_save_path}/model_pipeline")
+        print("Model saved")
 
     def load_model(self):
         self.model = PipelineModel.load(f"{self.model_save_path}/model_pipeline")
 
-    def predict(self, data_json):
-        schema = StructType([
-            StructField("time", StringType(), True),
-            StructField("temperature", DoubleType(), True)
-        ])
-        row_df = self.spark.createDataFrame([data_json], schema)
-        row_df = self.preprocess_data(row_df)
-        predictions = self.model.transform(row_df)
-        return predictions.select("prediction").collect()[0]["prediction"]
+    def predict(self, data_pd):
+        spark = SparkSession.builder.appName("Prediction").getOrCreate()
+        # Convert Pandas DataFrame to Spark DataFrame
+        data_spark = spark.createDataFrame(data_pd)
+        # Now apply preprocessing and prediction
+        data_preprocessed = self.preprocess_data(data_spark)
+        predictions = self.model.transform(data_preprocessed)
+        # Convert results back to Pandas for use in Streamlit
+        result_pd = predictions.select("prediction").toPandas()
+        return result_pd['prediction'][0]
+    
 
     def run(self, load_existing_model=False, train_new_model=True):
         if load_existing_model:
