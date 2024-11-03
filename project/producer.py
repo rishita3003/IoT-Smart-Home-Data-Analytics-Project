@@ -17,11 +17,4 @@ def send_data_to_kafka(topic='raw-climate-data'):
         print(f"Sent: {record.to_dict()}")
         time.sleep(0.2)
 
-    # with open(file_path, 'r') as file:
-    #     reader = csv.DictReader(file)
-    #     for row in reader:
-    #         producer.send(topic, row)
-    #         time.sleep(0.2)  # Simulate real-time data feed
-    #         #print("Sent:", row)
-
 send_data_to_kafka()
