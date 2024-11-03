@@ -1,0 +1,1 @@
+{"class":"org.apache.spark.ml.feature.VectorAssembler","timestamp":1730656573548,"sparkVersion":"3.5.3","uid":"VectorAssembler_d00708611261","paramMap":{"inputCols":["temperature","year","month","day","hour","minute"],"outputCol":"features"},"defaultParamMap":{"handleInvalid":"error","outputCol":"VectorAssembler_d00708611261__output"}}
