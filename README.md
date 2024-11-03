@@ -7,7 +7,7 @@ This guide describes the setup process for Kafka to handle real-time data stream
 ## Prerequisites
 
 Before you begin, ensure you have downloaded and extracted Kafka. For this setup, the Kafka version used is `3.8.1` for Scala `2.13`.
-Can follow the steps in this for installation: https://medium.com/@minhlenguyen02/how-to-properly-install-kafka-on-windows-11-a-step-by-step-guide-7b510dd78d05
+Can follow the steps in this for installation: [Kafka on windows](https://medium.com/@minhlenguyen02/how-to-properly-install-kafka-on-windows-11-a-step-by-step-guide-7b510dd78d05)
 
 Download Kafka: [Apache Kafka 3.8.1](https://downloads.apache.org/kafka/3.8.1/kafka_2.13-3.8.1.tgz)
 
