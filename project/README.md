@@ -39,7 +39,7 @@ $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
    python consumer.py
    ```
 
-   ### For general manual checking of producer and consumer :
+### For general manual checking of producer and consumer :
 
 1. Use a Producer to publish events
 ```bash
