@@ -33,6 +33,26 @@ $KAFKA_HOME/bin/kafka-console-producer.sh --topic sample-topic --broker-list loc
 $KAFKA_HOME/bin/kafka-console-consumer.sh --topic sample-topic --from-beginning --bootstrap-ser
 ```
 
+## Dashboard
+
+The dashboard is made on web-based application, Streamlit. The Streamlit dashboard designed to display real-time data from a Kafka topic titled ”raw-climate-data” provides a comprehensive view of temperature data alongside predicted values using a machine learning model.
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/dashboard%20database.png" width="450" ><br> </p>
+Dynamic Data View: This dataframe is part of a Streamlit dashboard that updates continuously as new temperature data and predictions are streamed in real-time. It reflects the ongoing analysis, showing the latest readings and predictions, thus serving as a crucial tool for monitoring the performance of IoT smart home devices.
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/plots%20dashboard.png" width="450"><br> </p>
+Temperature Analysis Plot: This graph displays the real-time temperature readings alongside the machine learning-based temperature predictions. It visually represents how the predictions align with the actual temperatures, providing a clear comparison that can help in assessing the accuracy and effectiveness of the predictive models employed.
+
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/latest%20prediction%20dashboard.png" width="450"><br> </p>
+Latest Predictions Update: This section of the dashboard highlights the most recent data point received and its corresponding predicted temperature. Updated with each new data stream, it offers immediate feedback on current conditions and the prediction's relevance, which is essential for systems requiring real-time operational decisions.
+
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/forecasting%20dashboard.png" width="450"><br> </p>
+Forecasting Future Temperatures: Employing a moving average, this plot extends beyond immediate predictions to forecast future temperatures. It smooths out the short-term fluctuations and highlights longer-term trends in the temperature data, thus providing valuable insights for predictive maintenance and energy management in smart home environments.
+
+
+
 
 ## Installation
 
