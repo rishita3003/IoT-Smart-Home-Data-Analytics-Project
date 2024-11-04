@@ -36,7 +36,7 @@ $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
    python producer.py
    ```
    ```bash
-   python consumer.py
+   streamlit run consumer.py
    ```
 
 ### For general manual checking of producer and consumer :
