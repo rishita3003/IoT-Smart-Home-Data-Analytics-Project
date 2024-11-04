@@ -7,9 +7,32 @@ This guide describes the setup process for Kafka to handle real-time data stream
 ## Prerequisites
 
 Before you begin, ensure you have downloaded and extracted Kafka. For this setup, the Kafka version used is `3.8.1` for Scala `2.13`.
-Can follow the steps in this for installation: https://medium.com/@minhlenguyen02/how-to-properly-install-kafka-on-windows-11-a-step-by-step-guide-7b510dd78d05
+Can follow the steps in this for installation: [Kafka on windows](https://medium.com/@minhlenguyen02/how-to-properly-install-kafka-on-windows-11-a-step-by-step-guide-7b510dd78d05)
 
 Download Kafka: [Apache Kafka 3.8.1](https://downloads.apache.org/kafka/3.8.1/kafka_2.13-3.8.1.tgz)
+
+To install kafka in wsl2 follow this : [Kafka on wsl2](https://michaeljohnpena.com/blog/kafka-wsl2/) 
+
+## Final project run in wsl (Testing Kafka):
+You need 4 tabs for this running the following (single lines)
+
+1. Start zookeeper
+```bash
+$KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.properties
+```
+2. Start Kafka
+```bash
+$KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
+```
+3. Use a Producer to publish events
+```bash
+$KAFKA_HOME/bin/kafka-console-producer.sh --topic sample-topic --broker-list localhost:9092
+```
+4. Use a Consumer to receive events
+```bash
+$KAFKA_HOME/bin/kafka-console-consumer.sh --topic sample-topic --from-beginning --bootstrap-ser
+```
+
 
 ## Installation
 
@@ -114,6 +137,12 @@ Download Kafka: [Apache Kafka 3.8.1](https://downloads.apache.org/kafka/3.8.1/ka
 Run the data_processing.ipynb to generate the training and testing data frames by preprocessing and visualization on plots.
 Run the ModelTrainer (in model.py file) to train and save the model.
 
+## Errors faced by me for a long time! in wsl2
+1. ModuleNotFoundError: No module named 'distutils'
+Solved by ```pip install setuptools```
+
+2. "kafka-six-moves" not found
+Solved by "pip install git+https://github.com/dpkp/kafka-python.git" after deleting kafka python ("pip uninstall kafka-python")
 
 
 ## Conclusion
