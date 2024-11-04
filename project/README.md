@@ -24,11 +24,28 @@ $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.propertie
 ```bash
 $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
 ```
-3. Use a Producer to publish events
+3. Data Preprocessing File
+   Run this notebook manually to produce training data (processed_data.csv) and testing data (test_data.csv) files
+4. Train the Model
+   Run the model.py file in order to train the model and store the model_pipeline in the directory.
+   ```bash
+   python model.py
+   ```
+5. Run the producer and consumer files in different terminals to see the data being sent by producer and read by the consumer in Kafka to produce predictions.
+   ```bash
+   python producer.py
+   ```
+   ```bash
+   python consumer.py
+   ```
+
+   For general manual checking of producer and consumer :
+   
+1. Use a Producer to publish events
 ```bash
 $KAFKA_HOME/bin/kafka-console-producer.sh --topic sample-topic --broker-list localhost:9092
 ```
-4. Use a Consumer to receive events
+2. Use a Consumer to receive events
 ```bash
 $KAFKA_HOME/bin/kafka-console-consumer.sh --topic sample-topic --from-beginning --bootstrap-ser
 ```
