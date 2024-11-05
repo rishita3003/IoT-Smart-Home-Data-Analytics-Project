@@ -51,7 +51,8 @@ Latest Predictions Update: This section of the dashboard highlights the most rec
 <p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/forecasting%20dashboard.png" width="450"><br> </p>
 Forecasting Future Temperatures: Employing a moving average, this plot extends beyond immediate predictions to forecast future temperatures. It smooths out the short-term fluctuations and highlights longer-term trends in the temperature data, thus providing valuable insights for predictive maintenance and energy management in smart home environments.
 
-
+## Demo video
+[IoT Smart Home Data Analytics](https://youtu.be/ATgxCmMOP4Q)
 
 
 ## Installation
