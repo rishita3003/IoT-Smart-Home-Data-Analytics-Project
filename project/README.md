@@ -11,7 +11,7 @@ Can follow the steps in this for installation: [Kafka on windows](https://medium
 
 Download Kafka: [Apache Kafka 3.8.1](https://downloads.apache.org/kafka/3.8.1/kafka_2.13-3.8.1.tgz)
 
-To install kafka in wsl2 follow this : [Kafka on wsl2](https://michaeljohnpena.com/blog/kafka-wsl2/) 
+To install kafka in wsl2 follow this : https://michaeljohnpena.com/blog/kafka-wsl2/ 
 
 ## Final project run in wsl (Testing Kafka):
 You need 4 tabs for this running the following (single lines)
@@ -24,31 +24,35 @@ $KAFKA_HOME/bin/zookeeper-server-start.sh $KAFKA_HOME/config/zookeeper.propertie
 ```bash
 $KAFKA_HOME/bin/kafka-server-start.sh $KAFKA_HOME/config/server.properties
 ```
-3. Data Preprocessing File
-   Run this notebook manually to produce training data (processed_data.csv) and testing data (test_data.csv) files
-4. Train the Model
-   Run the model.py file in order to train the model and store the model_pipeline in the directory.
-   ```bash
-   python model.py
-   ```
-5. Run the producer and consumer files in different terminals to see the data being sent by producer and read by the consumer in Kafka to produce predictions.
-   ```bash
-   python producer.py
-   ```
-   ```bash
-   streamlit run consumer.py
-   ```
-
-### For general manual checking of producer and consumer :
-
-1. Use a Producer to publish events
+3. Use a Producer to publish events
 ```bash
 $KAFKA_HOME/bin/kafka-console-producer.sh --topic sample-topic --broker-list localhost:9092
 ```
-2. Use a Consumer to receive events
+4. Use a Consumer to receive events
 ```bash
 $KAFKA_HOME/bin/kafka-console-consumer.sh --topic sample-topic --from-beginning --bootstrap-ser
 ```
+
+## Dashboard
+
+The dashboard is made on web-based application, Streamlit. The Streamlit dashboard designed to display real-time data from a Kafka topic titled ”raw-climate-data” provides a comprehensive view of temperature data alongside predicted values using a machine learning model.
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/dashboard%20database.png" width="450" ><br> </p>
+Dynamic Data View: This dataframe is part of a Streamlit dashboard that updates continuously as new temperature data and predictions are streamed in real-time. It reflects the ongoing analysis, showing the latest readings and predictions, thus serving as a crucial tool for monitoring the performance of IoT smart home devices.
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/plots%20dashboard.png" width="450"><br> </p>
+Temperature Analysis Plot: This graph displays the real-time temperature readings alongside the machine learning-based temperature predictions. It visually represents how the predictions align with the actual temperatures, providing a clear comparison that can help in assessing the accuracy and effectiveness of the predictive models employed.
+
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/latest%20prediction%20dashboard.png" width="450"><br> </p>
+Latest Predictions Update: This section of the dashboard highlights the most recent data point received and its corresponding predicted temperature. Updated with each new data stream, it offers immediate feedback on current conditions and the prediction's relevance, which is essential for systems requiring real-time operational decisions.
+
+
+<p align="center"> <img src="https://github.com/rishita3003/IoT-Smart-Home-Data-Analytics-Project/blob/main/project/images_dashboard/forecasting%20dashboard.png" width="450"><br> </p>
+Forecasting Future Temperatures: Employing a moving average, this plot extends beyond immediate predictions to forecast future temperatures. It smooths out the short-term fluctuations and highlights longer-term trends in the temperature data, thus providing valuable insights for predictive maintenance and energy management in smart home environments.
+
+## Demo video
+[IoT Smart Home Data Analytics](https://youtu.be/ATgxCmMOP4Q)
 
 
 ## Installation
